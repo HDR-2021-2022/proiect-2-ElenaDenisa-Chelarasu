@@ -1,0 +1,19 @@
+{
+  "name": "proiect-2-elenadenisa-chelarasu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HDR-2021-2022/proiect-2-ElenaDenisa-Chelarasu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HDR-2021-2022/proiect-2-ElenaDenisa-Chelarasu/issues"
+  },
+  "homepage": "https://github.com/HDR-2021-2022/proiect-2-ElenaDenisa-Chelarasu#readme"
+}
