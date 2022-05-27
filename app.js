@@ -28,17 +28,25 @@ app.get('/', (req, res) => res.send('Hello World'));
 app.get('/chestionar', (req, res) => {
 	const listaIntrebari = [
 		{
-			intrebare: 'Întrebarea 1',
-			variante: ['varianta 1', 'varianta 2', 'varianta 3', 'varianta 4'],
-			corect: 0
+			intrebare: 'Care este cel mai folosit tip de pagina?',
+			variante: ["A4", "A10", "Z16", "A5"],
+			corect: 1
 		},
 		{
-			intrebare: 'Întrebarea 2',
-			variante: ['varianta 1', 'varianta 2', 'varianta 3', 'varianta 4'],
-			corect: 0
+			intrebare: 'Care tip de copertă este mai durabil?',
+			variante: ["Cartonată", "Importată", "Broșată", "Oțelită"],
+			corect: 1
+		},
+		{
+			intrebare: 'Alegeți care dintre staționarele următoare NU există: ',
+			variante: ["Ierbar", "Perforator", "Cârlingă", "Ground"],
+			corect: 3
 		}
 	];
 	// în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
+	// chestionar: fisierul
+	// intrebari: numele variabilei din fisierul ejs
+	// listaIntrebari: valoarea asignata variabilei
 	res.render('chestionar', {intrebari: listaIntrebari});
 });
 
@@ -47,7 +55,7 @@ app.post('/rezultat-chestionar', (req, res) => {
 	res.send("formular: " + JSON.stringify(req.body));
 	//VERIFIC CATE INTREBARI SUNT CORECTE
 	//trec cu un vector prin rasunsuri
-	//let nr = 0
+	let nr = 0;
 	// for()
 	//	nr++; daca e corect
 	//res.render('rezultat-chestionar', {corecte: nr})
