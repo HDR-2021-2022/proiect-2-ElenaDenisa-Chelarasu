@@ -6,6 +6,8 @@ const app = express();
 
 const port = 6789;
 
+app.use(express.static('css'))
+
 // directorul 'views' va conține fișierele .ejs (html + js executat la server)
 app.set('view engine', 'ejs');
 // suport pentru layout-uri - implicit fișierul care reprezintă template-ul site-ului este views/layout.ejs
@@ -30,7 +32,11 @@ app.get('/chestionar', (req, res) => {
 			variante: ['varianta 1', 'varianta 2', 'varianta 3', 'varianta 4'],
 			corect: 0
 		},
-		//...
+		{
+			intrebare: 'Întrebarea 2',
+			variante: ['varianta 1', 'varianta 2', 'varianta 3', 'varianta 4'],
+			corect: 0
+		}
 	];
 	// în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
 	res.render('chestionar', {intrebari: listaIntrebari});
@@ -39,6 +45,12 @@ app.get('/chestionar', (req, res) => {
 app.post('/rezultat-chestionar', (req, res) => {
 	console.log(req.body);
 	res.send("formular: " + JSON.stringify(req.body));
+	//VERIFIC CATE INTREBARI SUNT CORECTE
+	//trec cu un vector prin rasunsuri
+	//let nr = 0
+	// for()
+	//	nr++; daca e corect
+	//res.render('rezultat-chestionar', {corecte: nr})
 });
 
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));
