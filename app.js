@@ -55,7 +55,7 @@ app.get('/chestionar', (req, res) => {
 			throw err;
 		}
 		listaIntrebari = JSON.parse(data);
-		console.log(listaIntrebari);
+		//console.log(listaIntrebari);
 	});	
 	// în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
 	// chestionar: fisierul
@@ -68,13 +68,17 @@ app.post('/rezultat-chestionar', (req, res) => {
 	console.log(req.body);
 	res.send("formular: " + JSON.stringify(req.body));
 	//VERIFIC CATE INTREBARI SUNT CORECTE
-	//trec cu un vector prin rasunsuri
+	//trec cu un vector prin raspunsuri
+	const submitButton = document.getElementById('submit');
 	let nr = 0;
 	for(let i = 0; i < listaIntrebari.length; ++i)
 	{
-		if(true)
+		let cor = parseInt( listaIntrebari[i].corecte );
+		let nume = "q" + cor;
+		if(document.getElementsByName("nume").value.checked)
 		{
 			nr++;
+			console.log("nr incrementat\n");
 		}
 	}
 	res.render('rezultat-chestionar', {corecte: nr})
