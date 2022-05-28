@@ -1,11 +1,17 @@
-
-{
-    "intrebare": "Care este cel mai folosit tip de pagina?",
-    "variante": [
-        "A4",
-        "A10",
-        "Z16",
-        "A5"
-    ],
-    "corect": 0
-}
+[
+    {
+        "intrebare": "Care este cel mai folosit tip de pagina?",
+        "variante": ["A4", "A10", "Z16", "A5"],
+        "corect": 1
+    },
+    {
+        "intrebare": "Care tip de copertă este mai durabil?",
+        "variante": ["Cartonată", "Importată", "Broșată", "Oțelită"],
+        "corect": 1
+    },
+    {
+        "intrebare": "Alegeți care dintre staționarele următoare NU există: ",
+        "variante": ["Ierbar", "Perforator", "Cârlingă", "Ground"],
+        "corect": 3
+    }
+]

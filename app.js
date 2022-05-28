@@ -6,6 +6,9 @@ const app = express();
 
 const port = 6789;
 
+const fs = require('fs');
+let listaIntrebari;
+
 app.use(express.static('css'))
 
 // directorul 'views' va conține fișierele .ejs (html + js executat la server)
@@ -26,7 +29,8 @@ app.get('/', (req, res) => res.send('Hello World'));
 
 // la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
 app.get('/chestionar', (req, res) => {
-	const listaIntrebari = [
+	/*
+	let listaIntrebari = [
 		{
 			intrebare: 'Care este cel mai folosit tip de pagina?',
 			variante: ["A4", "A10", "Z16", "A5"],
@@ -43,6 +47,16 @@ app.get('/chestionar', (req, res) => {
 			corect: 3
 		}
 	];
+	*/
+	
+	fs.readFile('intrebari.json', (err, data) => {
+		if (err)
+		{
+			throw err;
+		}
+		listaIntrebari = JSON.parse(data);
+		console.log(listaIntrebari);
+	});	
 	// în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
 	// chestionar: fisierul
 	// intrebari: numele variabilei din fisierul ejs
@@ -56,9 +70,14 @@ app.post('/rezultat-chestionar', (req, res) => {
 	//VERIFIC CATE INTREBARI SUNT CORECTE
 	//trec cu un vector prin rasunsuri
 	let nr = 0;
-	// for()
-	//	nr++; daca e corect
-	//res.render('rezultat-chestionar', {corecte: nr})
+	for(let i = 0; i < listaIntrebari.length; ++i)
+	{
+		if(true)
+		{
+			nr++;
+		}
+	}
+	res.render('rezultat-chestionar', {corecte: nr})
 });
 
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));
