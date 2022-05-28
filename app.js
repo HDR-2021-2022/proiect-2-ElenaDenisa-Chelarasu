@@ -8,6 +8,14 @@ const port = 6789;
 
 const fs = require('fs');
 let listaIntrebari;
+fs.readFile('intrebari.json', (err, data) => {
+	if (err)
+	{
+		throw err;
+	}
+	listaIntrebari = JSON.parse(data);
+	//console.log(listaIntrebari);
+});	
 
 app.use(express.static('css'))
 
@@ -49,14 +57,7 @@ app.get('/chestionar', (req, res) => {
 	];
 	*/
 	
-	fs.readFile('intrebari.json', (err, data) => {
-		if (err)
-		{
-			throw err;
-		}
-		listaIntrebari = JSON.parse(data);
-		//console.log(listaIntrebari);
-	});	
+	
 	// în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
 	// chestionar: fisierul
 	// intrebari: numele variabilei din fisierul ejs
@@ -66,9 +67,12 @@ app.get('/chestionar', (req, res) => {
 
 app.post('/rezultat-chestionar', (req, res) => {
 	console.log(req.body);
-	res.send("formular: " + JSON.stringify(req.body));
+	//res.send("formular: " + JSON.stringify(req.body));
 	//VERIFIC CATE INTREBARI SUNT CORECTE
 	//trec cu un vector prin raspunsuri
+	let nr=0;
+	/*
+	var data = req.body
 	const submitButton = document.getElementById('submit');
 	let nr = 0;
 	for(let i = 0; i < listaIntrebari.length; ++i)
@@ -81,6 +85,29 @@ app.post('/rezultat-chestionar', (req, res) => {
 			console.log("nr incrementat\n");
 		}
 	}
+	*/
+	var data = req.body;
+	var dataParsed = JSON.parse(data);
+	for (key in dataParsed) {
+		let corect = parseInt( listaIntrebari[i].corect );
+		let nume = "q" + corect;
+		if(dataParsed[k] == corect - 1)
+		{
+			nr++;
+			console.log("nr incrementat\n");
+		}
+	}
+	/*for(let i = 0; i < listaIntrebari.length; ++i)
+	{
+		let corect = parseInt( listaIntrebari[i].corect );
+		let nume = "q" + corect;
+		if(data.jsonData[i] == corect - 1)
+		{
+			nr++;
+			console.log("nr incrementat\n");
+		}
+	}*/
+
 	res.render('rezultat-chestionar', {corecte: nr})
 });
 
