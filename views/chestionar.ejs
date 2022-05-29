@@ -5,7 +5,7 @@
         <p><%= intrebari[i].intrebare %></p>
         <% let c = 1;%>
         <% for(let v of intrebari[i].variante){ %>
-            <input type="radio" name="q<%= i%>" value="<%= c%>"/><%= v%><br/>
+            <input type="radio" name="<%= i%>" value="<%= c%>"/><%= v%><br/>
             <% c+=1;%>
         <%
         }
@@ -14,7 +14,7 @@
     }
     %>
     <br>
-    <button id="submit" type="submit" name="verificareRezultat">Verifică-te!</button>
+    <input  type="submit" >Verifică-te!</button>
     
 </form>
 

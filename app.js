@@ -14,8 +14,8 @@ fs.readFile('intrebari.json', (err, data) => {
 		throw err;
 	}
 	listaIntrebari = JSON.parse(data);
-	//console.log(listaIntrebari);
-});	
+	
+});
 
 app.use(express.static('css'))
 
@@ -66,49 +66,80 @@ app.get('/chestionar', (req, res) => {
 });
 
 app.post('/rezultat-chestionar', (req, res) => {
+	
+	console.log("rez:",listaIntrebari)
+
+	let rezultat = []
+	let suma = 0;
+	//extrag cheile din obiect si le pun intr-un vector peste care fac map
+	Object.keys(req.body).forEach((el,index)=>{
+		console.log("el",el)
+		let rasp = {}
+		let intrebare = listaIntrebari[Number(el)]["intrebare"]
+		let raspCorect = Number( listaIntrebari[Number(el)].corect );
+		let raspDat = Number(req.body[el])
+
+		rasp["intrebare"] = intrebare;
+		if(raspCorect == raspDat)
+		{
+			rasp["rezultat"] = true
+			suma +=1
+		}
+		else 
+		{
+			rasp["rezultat"] = false
+			
+		}
+		rezultat.push(rasp)
+	})
+	console.log("fina:",rezultat)
 	console.log(req.body);
 	//res.send("formular: " + JSON.stringify(req.body));
 	//VERIFIC CATE INTREBARI SUNT CORECTE
 	//trec cu un vector prin raspunsuri
 	let nr=0;
-	/*
-	var data = req.body
-	const submitButton = document.getElementById('submit');
-	let nr = 0;
-	for(let i = 0; i < listaIntrebari.length; ++i)
-	{
-		let cor = parseInt( listaIntrebari[i].corecte );
-		let nume = "q" + cor;
-		if(document.getElementsByName("nume").value.checked)
-		{
-			nr++;
-			console.log("nr incrementat\n");
-		}
-	}
-	*/
-	var data = req.body;
-	var dataParsed = JSON.parse(data);
-	for (key in dataParsed) {
-		let corect = parseInt( listaIntrebari[i].corect );
-		let nume = "q" + corect;
-		if(dataParsed[k] == corect - 1)
-		{
-			nr++;
-			console.log("nr incrementat\n");
-		}
-	}
-	/*for(let i = 0; i < listaIntrebari.length; ++i)
-	{
-		let corect = parseInt( listaIntrebari[i].corect );
-		let nume = "q" + corect;
-		if(data.jsonData[i] == corect - 1)
-		{
-			nr++;
-			console.log("nr incrementat\n");
-		}
-	}*/
+	// /*
+	// var data = req.body
+	// const submitButton = document.getElementById('submit');
+	// let nr = 0;
+	// for(let i = 0; i < listaIntrebari.length; ++i)
+	// {
+	// 	let cor = parseInt( listaIntrebari[i].corecte );
+	// 	let nume = "q" + cor;
+	// 	if(document.getElementsByName("nume").value.checked)
+	// 	{
+	// 		nr++;
+	// 		console.log("nr incrementat\n");
+	// 	}
+	// }
+	// */
+	// var data = req.body;
+	// var dataParsed = JSON.parse(data);
+	// console.log("aiaia" + dataParsed);
+	// for (key in dataParsed) {
+	// 	let corect = parseInt( listaIntrebari[i].corect );
+	// 	let nume = "q" + corect;
+	// 	if(dataParsed[key] == corect - 1)
+	// 	{
+	// 		nr++;
+	// 		console.log("nr incrementat\n");
+	// 	}
+	// }
+	// /*for(let i = 0; i < listaIntrebari.length; ++i)
+	// {
+	// 	let corect = parseInt( listaIntrebari[i].corect );
+	// 	let nume = "q" + corect;
+	// 	if(data.jsonData[i] == corect - 1)
+	// 	{
+	// 		nr++;
+	// 		console.log("nr incrementat\n");
+	// 	}
+	// }*/
 
-	res.render('rezultat-chestionar', {corecte: nr})
+	res.render('rezultat-chestionar', {
+		rezultate: rezultat,
+		suma: suma
+	})
 });
 
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));
