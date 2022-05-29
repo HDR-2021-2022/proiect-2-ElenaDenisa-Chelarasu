@@ -30,34 +30,14 @@ app.use(bodyParser.json());
 // utilizarea unui algoritm de deep parsing care suportă obiecte în obiecte
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// la accesarea din browser adresei http://localhost:6789/ se va returna textul 'Hello World'
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
-app.get('/', (req, res) => res.send('Hello World'));
+app.get('/', (req, res) => {
+	res.send('index')
+});
 
 // la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
 app.get('/chestionar', (req, res) => {
-	/*
-	let listaIntrebari = [
-		{
-			intrebare: 'Care este cel mai folosit tip de pagina?',
-			variante: ["A4", "A10", "Z16", "A5"],
-			corect: 1
-		},
-		{
-			intrebare: 'Care tip de copertă este mai durabil?',
-			variante: ["Cartonată", "Importată", "Broșată", "Oțelită"],
-			corect: 1
-		},
-		{
-			intrebare: 'Alegeți care dintre staționarele următoare NU există: ',
-			variante: ["Ierbar", "Perforator", "Cârlingă", "Ground"],
-			corect: 3
-		}
-	];
-	*/
-	
-	
 	// în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
 	// chestionar: fisierul
 	// intrebari: numele variabilei din fisierul ejs
@@ -66,9 +46,6 @@ app.get('/chestionar', (req, res) => {
 });
 
 app.post('/rezultat-chestionar', (req, res) => {
-	
-	//console.log("rez:",listaIntrebari)
-
 	let rezultat = []
 	let suma = 0;
 	//extrag cheile din obiect si le pun intr-un vector peste care fac map
