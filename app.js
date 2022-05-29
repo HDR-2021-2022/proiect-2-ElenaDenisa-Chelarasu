@@ -24,7 +24,7 @@ app.set('view engine', 'ejs');
 // suport pentru layout-uri - implicit fișierul care reprezintă template-ul site-ului este views/layout.ejs
 app.use(expressLayouts);
 // directorul 'public' va conține toate resursele accesibile direct de către client (e.g., fișiere css, javascript, imagini)
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
 // corpul mesajului poate fi interpretat ca json; datele de la formular se găsesc în format json în req.body
 app.use(bodyParser.json());
 // utilizarea unui algoritm de deep parsing care suportă obiecte în obiecte
@@ -67,23 +67,22 @@ app.get('/chestionar', (req, res) => {
 
 app.post('/rezultat-chestionar', (req, res) => {
 	
-	console.log("rez:",listaIntrebari)
+	//console.log("rez:",listaIntrebari)
 
 	let rezultat = []
 	let suma = 0;
 	//extrag cheile din obiect si le pun intr-un vector peste care fac map
 	Object.keys(req.body).forEach((el,index)=>{
-		console.log("el",el)
 		let rasp = {}
 		let intrebare = listaIntrebari[Number(el)]["intrebare"]
-		let raspCorect = Number( listaIntrebari[Number(el)].corect );
+		let raspCorect = Number( listaIntrebari[Number(el)].corect )
 		let raspDat = Number(req.body[el])
 
-		rasp["intrebare"] = intrebare;
+		rasp["intrebare"] = intrebare
 		if(raspCorect == raspDat)
 		{
 			rasp["rezultat"] = "corect"
-			suma +=1
+			suma +=1;
 		}
 		else 
 		{
@@ -92,7 +91,6 @@ app.post('/rezultat-chestionar', (req, res) => {
 		}
 		rezultat.push(rasp)
 	})
-	let nr=0;
 
 	res.render('rezultat-chestionar', {
 		rezultate: rezultat,

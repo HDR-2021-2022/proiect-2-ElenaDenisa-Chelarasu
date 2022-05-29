@@ -2,7 +2,13 @@
     <div class="centered-content">
         <% for (var i = 0; i < rezultate.length; i++) { %>
             <p><%= rezultate[i]['intrebare'] %>: răspuns <%= rezultate[i]['rezultat'] %></p> 
-        <% } %>    
+        <% } %>
         <h4>Punctaj total: <%=suma %></h4>
+        <% if(suma < 5) { %>
+            <h4>Din păcate nu ați trecut testul!</h4>
+        <% } else { %>
+            <h4>Felicitări! Ați trecut testul!</h4>
+        <% } %>
+        
     </div>
 </body>
