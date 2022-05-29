@@ -1,7 +1,8 @@
-<body>
-    <% for (var i = 0; i < rezultate.length; i++) { %>
-        <h2><%= rezultate[i]['intrebare'] %></h2> 
-        <p><%= rezultate[i]['rezultat'] %></p> 
-    <% } %>    
-    <h1>Final:<%=suma %></h1>
+<body class="centered-wrapper">
+    <div class="centered-content">
+        <% for (var i = 0; i < rezultate.length; i++) { %>
+            <p><%= rezultate[i]['intrebare'] %>: răspuns <%= rezultate[i]['rezultat'] %></p> 
+        <% } %>    
+        <h4>Punctaj total: <%=suma %></h4>
+    </div>
 </body>

@@ -82,59 +82,17 @@ app.post('/rezultat-chestionar', (req, res) => {
 		rasp["intrebare"] = intrebare;
 		if(raspCorect == raspDat)
 		{
-			rasp["rezultat"] = true
+			rasp["rezultat"] = "corect"
 			suma +=1
 		}
 		else 
 		{
-			rasp["rezultat"] = false
+			rasp["rezultat"] = "greșit"
 			
 		}
 		rezultat.push(rasp)
 	})
-	console.log("fina:",rezultat)
-	console.log(req.body);
-	//res.send("formular: " + JSON.stringify(req.body));
-	//VERIFIC CATE INTREBARI SUNT CORECTE
-	//trec cu un vector prin raspunsuri
 	let nr=0;
-	// /*
-	// var data = req.body
-	// const submitButton = document.getElementById('submit');
-	// let nr = 0;
-	// for(let i = 0; i < listaIntrebari.length; ++i)
-	// {
-	// 	let cor = parseInt( listaIntrebari[i].corecte );
-	// 	let nume = "q" + cor;
-	// 	if(document.getElementsByName("nume").value.checked)
-	// 	{
-	// 		nr++;
-	// 		console.log("nr incrementat\n");
-	// 	}
-	// }
-	// */
-	// var data = req.body;
-	// var dataParsed = JSON.parse(data);
-	// console.log("aiaia" + dataParsed);
-	// for (key in dataParsed) {
-	// 	let corect = parseInt( listaIntrebari[i].corect );
-	// 	let nume = "q" + corect;
-	// 	if(dataParsed[key] == corect - 1)
-	// 	{
-	// 		nr++;
-	// 		console.log("nr incrementat\n");
-	// 	}
-	// }
-	// /*for(let i = 0; i < listaIntrebari.length; ++i)
-	// {
-	// 	let corect = parseInt( listaIntrebari[i].corect );
-	// 	let nume = "q" + corect;
-	// 	if(data.jsonData[i] == corect - 1)
-	// 	{
-	// 		nr++;
-	// 		console.log("nr incrementat\n");
-	// 	}
-	// }*/
 
 	res.render('rezultat-chestionar', {
 		rezultate: rezultat,
