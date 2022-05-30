@@ -55,6 +55,9 @@ app.get('/chestionar', (req, res) => {
 app.get('/autentificare', (req, res) => {
 	res.render('autentificare', {})
 });
+app.post('/autentificare', (req, res) => {
+	res.render('autentificare', {})
+});
 
 app.post('/verificare-autentificare', (req, res) => {
 	//console.log("/verificare-autentificare body: \n" + JSON.stringify(req.body))

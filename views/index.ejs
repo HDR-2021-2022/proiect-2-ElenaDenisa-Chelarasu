@@ -1,3 +1,9 @@
 <!--pagina de autentificare-->
 <h1>Pagina de autentificare</h1>
-<h1>Bine ai venit <%= utilizator%>!</h1>
+<% if(typeof utilizator !== 'undefined') { %>
+    <h2>Bine ai venit <%= utilizator%>!</h2>
+<% } else { %>
+    <form action='/autentificare' method='POST'>
+        <input type="submit" value="Autentificare">
+    </form>
+<% } %>
