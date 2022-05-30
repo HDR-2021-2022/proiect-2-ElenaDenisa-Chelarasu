@@ -48,6 +48,11 @@ app.get('/autentificare', (req, res) => {
 	res.render('autentificare', {})
 });
 
+app.post('/verificare-autentificare', (req, res) => {
+	console.log("/verificare-autentificare body: \n" + JSON.stringify(req.body))
+});
+	
+
 app.post('/rezultat-chestionar', (req, res) => {
 	let rezultat = []
 	let suma = 0;
