@@ -35,13 +35,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
 	res.render('index', {})
 });
-// la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
+
 app.get('/chestionar', (req, res) => {
 	// în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
 	// chestionar: fisierul
 	// intrebari: numele variabilei din fisierul ejs
 	// listaIntrebari: valoarea asignata variabilei
 	res.render('chestionar', {intrebari: listaIntrebari});
+});
+
+app.get('/autentificare', (req, res) => {
+	res.render('autentificare', {})
 });
 
 app.post('/rezultat-chestionar', (req, res) => {
