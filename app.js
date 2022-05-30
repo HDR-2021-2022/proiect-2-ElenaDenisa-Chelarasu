@@ -8,6 +8,7 @@ const app = express();
 const port = 6789;
 
 const fs = require('fs');
+const { PassThrough } = require('stream');
 let listaIntrebari;
 fs.readFile('intrebari.json', (err, data) => {
 	if (err)
@@ -56,7 +57,14 @@ app.get('/autentificare', (req, res) => {
 });
 
 app.post('/verificare-autentificare', (req, res) => {
-	console.log("/verificare-autentificare body: \n" + JSON.stringify(req.body))
+	//console.log("/verificare-autentificare body: \n" + JSON.stringify(req.body))
+	let uname = req.body["uname"]
+	if(req.body["uname"] == "admin" && req.body["psw"] == "admin") {
+		console.log("pass and user same");
+	}
+	else{
+		console.log("pass and user different");
+	}
 });
 	
 
