@@ -9,6 +9,8 @@ const port = 6789;
 
 const fs = require('fs');
 const { PassThrough } = require('stream');
+const session = require('express-session'); 
+
 let listaIntrebari;
 fs.readFile('intrebari.json', (err, data) => {
 	if (err)
@@ -38,10 +40,23 @@ app.use(bodyParser.json());
 // utilizarea unui algoritm de deep parsing care suportă obiecte în obiecte
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(session({
+	resave: false,
+	saveUninitialized: false,
+	secret: 'secret-key'
+}))
+
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
 app.get('/', (req, res) => {
-	res.render('index', {})
+	let utilizator = req.session.user
+	let mesaj = ''
+	if(typeof utilizator !== 'undefined')
+	{
+		mesaj = "Bine ai venit " + utilizator + "!"
+		utilizator = "Logat ca " + utilizator
+	}
+	res.render('index', {utilizator: utilizator, mesaj: mesaj})
 });
 
 app.get('/chestionar', (req, res) => {
@@ -53,8 +68,14 @@ app.get('/chestionar', (req, res) => {
 });
 
 app.get('/autentificare', (req, res) => {
-	res.render('autentificare', {})
+	let mesaj = req.session.mesajEroare
+	if(typeof mesaj == 'undefined')
+	{
+		mesaj = ''
+	}
+	res.render('autentificare', {mesaj: mesaj})
 });
+
 app.post('/autentificare', (req, res) => {
 	res.render('autentificare', {})
 });
@@ -64,19 +85,29 @@ app.post('/verificare-autentificare', (req, res) => {
 	let uname = req.body["uname"]
 	if(req.body["uname"] == "admin" && req.body["psw"] == "admin") {
 		console.log("pass and user same")
-		res.cookie('utilizator', {uname: req.body["uname"], psw: req.body["psw"]})
-		res.render('index', {utilizator: req.cookies.utilizator.uname})
-		//res.redirect('/')
+		//res.send('layout', {utilizator: sessionVar.userid})
+		//res.status('layout').send({utilizator: sessionVar.userid})
+		//req.session("utilizator", req.body["uname"])
+		//res.cookie('utilizator', {uname: req.body["uname"], psw: req.body["psw"]})
+		//res.redirect('/', {utilizator: req.cookies.utilizator.uname})
+		req.session.user = req.body["uname"]
+		res.redirect('/')
 	}
 	else{
-		console.log("pass and user different")
-		res.cookie('mesajEroare', {err: 'Numele de utilizator sau parola sunt incorecte!'})
+		//console.log("pass and user different")
+		//res.cookie('mesajEroare', {err: 'Numele de utilizator sau parola sunt incorecte!'})
 		//res.redirect('/autentificare')
-		res.render('autentificare', {eroare: req.cookies.mesajEroare.err})
+		req.session.mesajEroare = "Numele de utilizator sau parola sunt incorecte!"
+		//res.redirect('/autentificare', {eroare: req.cookies.mesajEroare.err})
+		res.redirect('/autentificare')
 	}
 	
 });
-	
+
+app.get('/logout', (req,res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 app.post('/rezultat-chestionar', (req, res) => {
 	let rezultat = []
