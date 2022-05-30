@@ -84,7 +84,7 @@ app.post('/verificare-autentificare', (req, res) => {
 	//console.log("/verificare-autentificare body: \n" + JSON.stringify(req.body))
 	let uname = req.body["uname"]
 	if(req.body["uname"] == "admin" && req.body["psw"] == "admin") {
-		console.log("pass and user same")
+		console.log("LOGAT SUCC: pass and user same")
 		//res.send('layout', {utilizator: sessionVar.userid})
 		//res.status('layout').send({utilizator: sessionVar.userid})
 		//req.session("utilizator", req.body["uname"])
@@ -94,7 +94,7 @@ app.post('/verificare-autentificare', (req, res) => {
 		res.redirect('/')
 	}
 	else{
-		//console.log("pass and user different")
+		console.log("LOGAT ERR: pass and user different " + req.body["psw"])
 		//res.cookie('mesajEroare', {err: 'Numele de utilizator sau parola sunt incorecte!'})
 		//res.redirect('/autentificare')
 		req.session.mesajEroare = "Numele de utilizator sau parola sunt incorecte!"
@@ -106,6 +106,7 @@ app.post('/verificare-autentificare', (req, res) => {
 
 app.get('/logout', (req,res) => {
     req.session.destroy();
+	console.log("DEZLOGAT");
     res.redirect('/');
 });
 
