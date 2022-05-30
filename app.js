@@ -67,8 +67,9 @@ app.post('/verificare-autentificare', (req, res) => {
 	}
 	else{
 		console.log("pass and user different")
-		res.cookie('mesajEroare', 'Numele de utilizator sau parola sunt incorecte!')
-		res.redirect('/autentificare')
+		res.cookie('mesajEroare', {err: 'Numele de utilizator sau parola sunt incorecte!'})
+		//res.redirect('/autentificare')
+		res.render('autentificare', {eroare: req.cookies.mesajEroare.err})
 	}
 	
 });

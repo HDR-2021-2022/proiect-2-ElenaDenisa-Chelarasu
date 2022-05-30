@@ -1,3 +1,6 @@
+<% if(typeof eroare !== 'undefined') { %>
+    <h2 style="color: red;"><%= eroare%></h2>
+<% } %>
 <h2>Pentru a putea avea parte de întreaga experiență și gamă de produse StationarE!, vă rog să vă autentificați</h2>
 <form action='/verificare-autentificare' method='POST'>
     <div class="container">
