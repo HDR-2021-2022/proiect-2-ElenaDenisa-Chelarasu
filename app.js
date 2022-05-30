@@ -61,14 +61,16 @@ app.post('/verificare-autentificare', (req, res) => {
 	let uname = req.body["uname"]
 	if(req.body["uname"] == "admin" && req.body["psw"] == "admin") {
 		console.log("pass and user same")
-		res.cookie('utilizator', req.body["uname"])
-		res.redirect('/')
+		res.cookie('utilizator', {uname: req.body["uname"], psw: req.body["psw"]})
+		res.render('index', {utilizator: req.cookies.utilizator.uname})
+		//res.redirect('/')
 	}
 	else{
 		console.log("pass and user different")
 		res.cookie('mesajEroare', 'Numele de utilizator sau parola sunt incorecte!')
 		res.redirect('/autentificare')
 	}
+	
 });
 	
 
