@@ -27,6 +27,11 @@
     <input type="submit" value="Încarcare BD">
 </form>
 
+<%var enable = ""
+if(logat != true){
+    enable = "disabled"
+}%>
+
 <section>
     <table>
         <tr>
@@ -40,6 +45,12 @@
             <tr>
                 <td><%=data.nume_produs %></td>
                 <td><%=data.pret %></td>
+                <td>
+                    <form method="POST" action="/adaugare-cos">
+                        <input type="hidden" name="id_produs" value="<%= data.id_produs %>">
+                        <button <%= enable %>>Adaugă în coș</button>
+                    </form>
+                </td>
             </tr>
         <% }) %>
         <% } else{ %>
