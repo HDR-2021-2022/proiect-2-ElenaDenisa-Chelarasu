@@ -58,14 +58,30 @@ app.use(session({
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
 app.get('/', (req, res) => {
+	let listaProduse = []
+	let query = "SELECT * FROM produse;"
+	db.all(query, (err, val) => {
+		if (err) {
+			console.log("Error Occured" + err);
+		} else {
+			//console.log("cuvant: " + val);
+			val.forEach((el) => {
+				//console.log(el)
+				listaProduse.push(el)
+			})
+		}
+	})
+
 	let utilizator = req.session.user
 	let mesaj = ''
+	let logat = false
 	if(typeof utilizator !== 'undefined')
 	{
 		mesaj = "Bine ai venit " + utilizator + "!"
 		utilizator = "Logat ca " + utilizator
+		logat = true
 	}
-	res.render('index', {utilizator: utilizator, mesaj: mesaj})
+	res.render('index', {utilizator: utilizator, mesaj: mesaj, logat: logat, produseDate: listaProduse})
 });
 
 app.get('/chestionar', (req, res) => {
@@ -185,13 +201,28 @@ app.get('/populare', async (req, res) =>{
 
 	let aux = [{
 		id_produs: generateRandom(999, 9999),
-		nume_produs: "Decapsator",
+		nume_produs: "Decapsator MILAN 19007B",
+		pret: 6
+	},
+	{
+		id_produs: generateRandom(999, 9999),
+		nume_produs: "Hartie decorativa A4 24 coli Blooming Rose",
+		pret: 23
+	},
+	{
+		id_produs: generateRandom(999, 9999),
+		nume_produs: "Agenda nedatata A5 80 file",
 		pret: 20
 	},
 	{
 		id_produs: generateRandom(999, 9999),
-		nume_produs: "Top de hărtie",
-		pret: 15
+		nume_produs: "Plic antisoc nr. 6 Postasut 240x350",
+		pret: 2
+	},
+	{
+		id_produs: generateRandom(999, 9999),
+		nume_produs: "Registru A4 cartonat 200 file",
+		pret: 34
 	}]
 	aux.forEach( (el) => {
 		console.log(el);
@@ -221,7 +252,7 @@ app.get('/show', async (req, res) =>{
 				console.log(el)
 			})
 		}
+		//res.render('index', {title: 'PRODUSE', produseDate: val})
 	})
-	res.send("ceva")
 });
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));

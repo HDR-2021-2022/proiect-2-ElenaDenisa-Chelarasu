@@ -1,9 +1,16 @@
 <!--pagina de autentificare-->
 
-<h1>Pagina de baza</h1>
+
+<h3>Transport GRATUIT pentru comenzi peste 200 lei prin curierat Poștă</h3>
 <h2><b><%= mesaj%></b></h2>
-<h3><%= utilizator%></h3>
+
+<p>
+    <h2>Produsele noastre înseamnă mai mult decât papetărie, înseamnă BUCURIE!
+    Tot mai mult oamenii își doresc ca brandurile pe care le cumpără să le transmită ceva.
+    De aceea, ne-am propus ca brandul propriu StationarE! să fie un atfel de brand.</h2>
+</p>
 <% if(typeof mesaj !== 'undefined') {%>
+    <h3 class="log-out-text"><%= utilizator%></h3>
     <button class="log-out">
         <a href="/logout" >Click to logout</a>
     </button>
@@ -19,3 +26,26 @@
 <form action='/populare' method='GET'>
     <input type="submit" value="Încarcare BD">
 </form>
+
+<section>
+    <table>
+        <tr>
+            <th>Nume produs</th>
+            <th>Preț</th>
+            <th></th>
+        </tr>
+        
+        <%if(produseDate.length != 0){
+            produseDate.forEach(function(data) { %>
+            <tr>
+                <td><%=data.nume_produs %></td>
+                <td><%=data.pret %></td>
+            </tr>
+        <% }) %>
+        <% } else{ %>
+            <tr>
+                <td colspan="7">No Data Found</td>
+            </tr>
+        <% } %>
+    </table>
+</section>

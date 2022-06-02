@@ -40,6 +40,15 @@ input:hover{
     top: 10px;
     right: 10px;
 }
+.log-out-text
+{
+    outline: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 1px;
+    right: 10%;
+}
 .log-out a
 {
     text-decoration: none;
@@ -85,4 +94,17 @@ input:hover{
 .navbar a:hover {
     background-color: #e5989b;
     color: black;
+}
+
+/*tabel*/
+table{
+    overflow: hidden;
+    width: 100%;
+}
+th, td{
+    background-color: aliceblue;
+}
+#continut > table, th, td{
+    text-align: center;
+    border: 2px black solid;
 }
