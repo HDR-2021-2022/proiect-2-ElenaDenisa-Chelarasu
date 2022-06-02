@@ -67,10 +67,12 @@ app.get('/', (req, res) => {
 		utilizator = "Logat ca " + utilizator
 		logat = true
 	}
+	/*
 	if(!logat)
 	{
 		return res.redirect('/autentificare');
 	}
+	*/
 
 	let query = "SELECT * FROM produse;"
 	db.all(query, (err, val) => {
@@ -272,4 +274,35 @@ app.post('/adaugare-cos', (req, res) => {
 	res.redirect("/")
 });
 
+app.get('/vizualizare-cos', (req, res) => {
+	let produse = []
+	if(req.session.cumparaturi)
+	{
+        produse = req.session.cumparaturi;
+    }
+	//console.log(req.session.cumparaturi);
+	let logat = false
+	if(typeof req.session.user !== 'undefined')
+	{
+		logat = true
+	}
+	let query = "SELECT * FROM produse;"
+	db.all(query, (err, val) => {
+		if (err) {
+			console.log("Error Occured" + err);
+		} else {
+			val.forEach((el) =>{
+				produse.forEach((elProd) => {
+					if(el["id_produs"] == elProd["id_produs"]){
+						elProd["nume_produs"] = el
+						console.log(elProd.nume_produs);
+						return
+					}
+				})
+			})
+			res.render("vizualizare-cos", {logat: logat, produseDate: produse})
+		}
+	})
+	//res.render("vizualizare-cos", {logat: logat, produseDate: produse})
+});
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));

@@ -1,0 +1,30 @@
+<!--de preluat din index-->
+<%if(logat != true){ %>
+    <h1>Dacă nu ești logat, nu poți comanda de pe site-ul nostru!</h1>
+    <p style="color: blue;">Intră acum în cont, chiar aici: </p>
+    <form action='/autentificare' method='POST'>
+        <input type="submit" value="Autentificare">
+    </form>
+<% } %>
+
+<section>
+    <table>
+        <tr>
+            <th>Nume produs</th>
+            <th>Preț</th>
+        </tr>
+        
+        <%if(produseDate.length != 0){
+            produseDate.forEach(function(data) { %>
+            <tr>
+                <td><%=data.nume_produs %></td>
+                <td><%=data.pret %></td>
+            </tr>
+        <% }) %>
+        <% } else{ %>
+            <tr>
+                <td colspan="7">No Data Found</td>
+            </tr>
+        <% } %>
+    </table>
+</section>
