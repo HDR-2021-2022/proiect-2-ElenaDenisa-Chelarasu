@@ -24,7 +24,7 @@ fs.readFile('intrebari.json', (err, data) => {
 
 const db = new sqlite3.Database('./cumparaturi.db', (err) => {
 	if (err) {
-	  console.log("Error Occured - ${err.message}");
+	  console.log("111Error Occured - ${err.message}");
 	} else {
 	  console.log("DataBase Connected");
 	}
@@ -58,20 +58,6 @@ app.use(session({
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
 app.get('/', (req, res) => {
-	let listaProduse = []
-	let query = "SELECT * FROM produse;"
-	db.all(query, (err, val) => {
-		if (err) {
-			console.log("Error Occured" + err);
-		} else {
-			//console.log("cuvant: " + val);
-			val.forEach((el) => {
-				//console.log(el)
-				listaProduse.push(el)
-			})
-		}
-	})
-
 	let utilizator = req.session.user
 	let mesaj = ''
 	let logat = false
@@ -81,7 +67,20 @@ app.get('/', (req, res) => {
 		utilizator = "Logat ca " + utilizator
 		logat = true
 	}
-	res.render('index', {utilizator: utilizator, mesaj: mesaj, logat: logat, produseDate: listaProduse})
+	if(!logat)
+	{
+		return res.redirect('/autentificare');
+	}
+
+	let query = "SELECT * FROM produse;"
+	db.all(query, (err, val) => {
+		if (err) {
+			console.log("Error Occured" + err);
+		} else {
+			
+		res.render('index', {utilizator: utilizator, mesaj: mesaj, logat: logat, produseDate: val})
+		}
+	})
 });
 
 app.get('/chestionar', (req, res) => {
