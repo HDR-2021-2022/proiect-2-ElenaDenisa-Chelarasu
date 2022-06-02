@@ -2,6 +2,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
+var sqlite3 = require("sqlite3");
 
 const app = express();
 
@@ -19,6 +20,14 @@ fs.readFile('intrebari.json', (err, data) => {
 	}
 	listaIntrebari = JSON.parse(data);
 	
+});
+
+const db = new sqlite3.Database('./cumparaturi.db', (err) => {
+	if (err) {
+	  console.log("Error Occured - ${err.message}");
+	} else {
+	  console.log("DataBase Connected");
+	}
 });
 
 app.use(express.static('css'))
@@ -140,4 +149,26 @@ app.post('/rezultat-chestionar', (req, res) => {
 	})
 });
 
+
+app.get('/creare-bd', async (req, res) =>{
+	let query = "CREATE TABLE produse(id_produs, nume_produs, pret)"
+	let creare = await db.exec(query, (err, val) => {});
+	res.redirect('/');
+});
+
+app.get('/populare', async (req, res) =>{
+	let aux = [{
+		nume: "Ana",
+		pret: 5
+	},
+	{
+		nume: "Hartie",
+		pret: 6
+	}]
+	aux.forEach( (el) => {
+		console.log(el);
+		let query = "INSERT INTO produse()"
+		db.exec(query, (err, val) => {})
+	})
+});
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));
