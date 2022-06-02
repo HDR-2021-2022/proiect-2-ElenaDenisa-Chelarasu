@@ -1,9 +1,12 @@
 <!--pagina de autentificare-->
+
 <h1>Pagina de baza</h1>
 <h2><b><%= mesaj%></b></h2>
 <h3><%= utilizator%></h3>
 <% if(typeof mesaj !== 'undefined') {%>
-    <a href="/logout" >click to logout</a>
+    <button class="log-out">
+        <a href="/logout" >Click to logout</a>
+    </button>
 <% } %>
 <form action='/autentificare' method='POST'>
     <input type="submit" value="Autentificare">

@@ -13,5 +13,15 @@
         "intrebare": "Alegeți care dintre staționarele următoare NU există: ",
         "variante": ["Ierbar", "Perforator", "Cârlingă", "Ground"],
         "corect": 3
+    },
+    {
+        "intrebare": "În cadrul unei slujbe de birou vi se oferă un pachet de angajat. Ce se află în el?",
+        "variante": ["Jucărie senzorială, pensoane, caiet de scris", "Stilou, pix, hârtie", "Ușă din mahon, Brad de Crăciun, Ouă confiate", "Ciocolată"],
+        "corect": 4
+    },
+    {
+        "intrebare": "Cum se numește obiectul care poate scoate caps folosite?",
+        "variante": ["Capsator", "Decapsator", "Decapsificator", "Anulatus-Capsus"],
+        "corect": 2
     }
 ]

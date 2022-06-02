@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <link type="text/css" href="./style.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <title>StationarE!</title>
     </head>
     <body>
@@ -10,6 +10,17 @@
         <% if(typeof utilizator !== 'undefined') { %>
             <h2><%= utilizator%>!</h2>
         <% } %> -->
+        <nav class="navbar">
+            <a href="/">Acasă</a>
+            <a href="/chestionar">Chestionar</a>
+            <a href="/autentificare">Logare</a>
+        </nav>
         <main><%- body %></main>
+        <footer>
+            <p>
+                &copy;2022 by Chelarasu Elena. All Rights Reserved.
+                <br>Elena is Powered by chocolate and stickers.
+            </p>
+        </footer>
     </body>
 </html>

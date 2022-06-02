@@ -1,26 +1,21 @@
-<h1 class="page-title">Completați chestionarul pentru a vă mări stima de sine!</h1>
+<body class="centered-wrapper">
+    <h1 class="page-title">Completați chestionarul pentru a vă mări stima de sine!</h1>
 
-<form action='/rezultat-chestionar' method="POST">
-    <% for(let i=0; i<intrebari.length; ++i) { %>
-        <p><%= intrebari[i].intrebare %></p>
-        <% let c = 1;%>
-        <% for(let v of intrebari[i].variante){ %>
-            <input type="radio" name="<%= i%>" value="<%= c%>"/><%= v%><br/>
-            <% c+=1;%>
+    <form id="chestioForm" action='/rezultat-chestionar' method="POST">
+        <% for(let i=0; i<intrebari.length; ++i) { %>
+            <p><%= intrebari[i].intrebare %></p>
+            <% let c = 1;%>
+            <% for(let v of intrebari[i].variante){ %>
+                <input type="radio" name="<%= i%>" value="<%= c%>"/><%= v%><br/>
+                <% c+=1;%>
+            <%
+            }
+            %>
         <%
         }
         %>
-    <%
-    }
-    %>
-    <br>
-    <input type="submit" value="Verifică-te!">
-    
-</form>
+        <br>
+        <input type="submit" value="Verifică-te!">
 
-<footer>
-    <p>
-        &copy;2022 by Chelarasu Elena. All Rights Reserved.
-        <br>Elena is Powered by chocolate and stickers.
-    </p>
-</footer>
+    </form>
+</body>
