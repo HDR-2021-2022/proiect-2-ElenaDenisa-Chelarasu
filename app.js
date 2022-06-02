@@ -254,4 +254,22 @@ app.get('/show', async (req, res) =>{
 		//res.render('index', {title: 'PRODUSE', produseDate: val})
 	})
 });
+
+app.post('/adaugare-cos', (req, res) => {
+	let id_prod = req.body["id_produs"]
+	if(req.body["id_produs"]) // ! deoarece de fiecare data imi crea cate un nou cos
+	{
+		//Cannot read properties of undefined => verific existenta
+		if(!req.session.cumparaturi) 
+		{
+			req.session.cumparaturi = []
+			console.log("nu am cos, dar am creat");
+		}
+		
+	}
+	req.session.cumparaturi.push( {id_produs: req.body["id_produs"]} )
+	console.log("am introdus in cos: " + id_prod);
+	res.redirect("/")
+});
+
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));
