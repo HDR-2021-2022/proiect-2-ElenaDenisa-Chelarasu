@@ -151,24 +151,77 @@ app.post('/rezultat-chestionar', (req, res) => {
 
 
 app.get('/creare-bd', async (req, res) =>{
-	let query = "CREATE TABLE produse(id_produs, nume_produs, pret)"
+	let query = "DROP TABLE IF EXISTS produse"
+	db.exec(query, (err, val) => {
+		if (err) {
+			console.log("Error Occured" + err);
+		} else {
+			console.log("Adaugat");
+		}
+	})
+	query = "CREATE TABLE IF NOT EXISTS produse(id_produs INTEGER, nume_produs VARCHAR(100), pret INTEGER)"
 	let creare = await db.exec(query, (err, val) => {});
 	res.redirect('/');
 });
 
+function generateRandom(min , max) {
+
+    // find diff
+    let difference = max - min;
+
+    // generate random number 
+    let rand = Math.random();
+
+    // multiply with difference 
+    rand = Math.floor( rand * difference);
+
+    // add with min value 
+    rand = rand + min;
+
+    return rand;
+}
+
 app.get('/populare', async (req, res) =>{
+
 	let aux = [{
-		nume: "Ana",
-		pret: 5
+		id_produs: generateRandom(999, 9999),
+		nume_produs: "Decapsator",
+		pret: 20
 	},
 	{
-		nume: "Hartie",
-		pret: 6
+		id_produs: generateRandom(999, 9999),
+		nume_produs: "Top de hărtie",
+		pret: 15
 	}]
 	aux.forEach( (el) => {
 		console.log(el);
-		let query = "INSERT INTO produse()"
-		db.exec(query, (err, val) => {})
+		let query = "INSERT INTO produse(id_produs,nume_produs,pret) " + 
+					"VALUES(" + el.id_produs + ", '" + el.nume_produs + "', " + el.pret + ");";
+		//console.log(query);
+		db.exec(query, (err, val) => {
+			if (err) {
+				console.log("Error Occured" + err);
+			} else {
+				console.log("Adaugat");
+			}
+		})
 	})
+	res.redirect('/');
+});
+
+app.get('/show', async (req, res) =>{
+	let query = "SELECT * FROM produse;"
+		//console.log(query);
+	db.all(query, (err, val) => {
+		if (err) {
+			console.log("Error Occured" + err);
+		} else {
+			//console.log("cuvant: " + val);
+			val.forEach((el) => {
+				console.log(el)
+			})
+		}
+	})
+	res.send("ceva")
 });
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));
