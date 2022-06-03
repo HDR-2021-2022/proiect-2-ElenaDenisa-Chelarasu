@@ -17,8 +17,8 @@
         <%if(produseDate.length != 0){
             produseDate.forEach(function(data) { %>
             <tr>
-                <td><%=data.nume_produs %></td>
-                <td><%=data.pret %></td>
+                <td><%=data.nume_produs.nume_produs%></td>
+                <td><%=data.nume_produs.pret %></td>
             </tr>
         <% }) %>
         <% } else{ %>

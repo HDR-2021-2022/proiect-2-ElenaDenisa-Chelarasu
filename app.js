@@ -168,14 +168,14 @@ app.post('/rezultat-chestionar', (req, res) => {
 
 
 app.get('/creare-bd', async (req, res) =>{
-	let query = "DROP TABLE IF EXISTS produse"
-	db.exec(query, (err, val) => {
-		if (err) {
-			console.log("Error Occured" + err);
-		} else {
-			console.log("Adaugat");
-		}
-	})
+	//let query = "DROP TABLE IF EXISTS produse"
+	// db.exec(query, (err, val) => {
+	// 	if (err) {
+	// 		console.log("Error Occured" + err);
+	// 	} else {
+	// 		console.log("Adaugat");	
+	// 	}
+	// })
 	query = "CREATE TABLE IF NOT EXISTS produse(id_produs INTEGER, nume_produs VARCHAR(100), pret INTEGER)"
 	let creare = await db.exec(query, (err, val) => {});
 	res.redirect('/');
